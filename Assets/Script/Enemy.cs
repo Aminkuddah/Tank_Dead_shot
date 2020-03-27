@@ -66,39 +66,32 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Player") != null)
+         if (Vector2.Distance(transform.position, player.position) > stoppingDistance)
         {
-             if (Vector2.Distance(transform.position, player.position) > stoppingDistance)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-            }
-            else if (Vector2.Distance(transform.position, player.position) < stoppingDistance && Vector2.Distance(transform.position, player.position) > retreatDistance)
-            {
-                transform.position = this.transform.position;
-            }
-            else if (Vector2.Distance(transform.position, player.position) < retreatDistance)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
-            }
-
-            float rotZ = Mathf.Atan2(player.transform.position.y, player.transform.position.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0.0f, rotZ-90);
-
-            if (timeShots <= 0)
-            {
-                GameObject bullet = Instantiate(projectTile) as GameObject;
-                bullet.transform.position = bulletStart.transform.position;
-                bullet.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotZ-90);
-                timeShots = startShots;
-            }
-            else
-            {
-                timeShots -= Time.deltaTime;
-            } 
-        } else {
-            transform.position = this.transform.position;
-            transform.rotation = this.transform.rotation;
+            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         }
+        else if (Vector2.Distance(transform.position, player.position) < stoppingDistance && Vector2.Distance(transform.position, player.position) > retreatDistance)
+        {
+            transform.position = this.transform.position;
+        }
+        else if (Vector2.Distance(transform.position, player.position) < retreatDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
+        }
+        
+        float rotZ = Mathf.Atan2(player.transform.position.y, player.transform.position.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0.0f, rotZ-90);
+        if (timeShots <= 0)
+        {
+            GameObject bullet = Instantiate(projectTile) as GameObject;
+            bullet.transform.position = bulletStart.transform.position;
+            bullet.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotZ-90);
+            timeShots = startShots;
+        }
+        else
+        {
+                timeShots -= Time.deltaTime;
+            }
     }
 
     private void OnTriggerEnter2D(Collider2D other){

@@ -16,7 +16,6 @@ public class projectTile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerObject = GameObject.FindGameObjectWithTag("Player");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         target = new Vector2(player.position.x, player.position.y);
     }
@@ -35,16 +34,11 @@ public class projectTile : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             DestroyProjectTile();
-            kill();
         }
         if (other.CompareTag("Wall"))
         {
             DestroyProjectTile();
         }
-    }
-
-    private void kill(){
-        Destroy(playerObject);
     }
 
     void DestroyProjectTile(){
