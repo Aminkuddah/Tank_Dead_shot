@@ -12,9 +12,6 @@ public class bulletPlayer : MonoBehaviour
     private Vector3 target;
 
     public float bulletSpeed = 10.0f;
-    // public float offset;
-    // public float startShots;
-    // private float timeShots;
 
     void Start(){
         Cursor.visible = false;
@@ -23,20 +20,31 @@ public class bulletPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
-        glasses.transform.position = new Vector2(target.x, target.y);
-        
-        Vector3 difference = target - player.transform.position;
-        float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        player.transform.rotation = Quaternion.Euler(0f, 0.0f, rotZ-90);
-        
-        if (Input.GetMouseButtonDown(0))
-        {
-            float distance = difference.magnitude;
-            Vector2 direction = difference / distance;
-            direction.Normalize();
-            shoot(direction, rotZ);
-        }    
+        if (GameObject.FindGameObjectWithTag("Player") != null){
+            if(PauseMenu.GameIsPaused == true)
+            {
+                Cursor.visible = true;
+            }
+            else{
+                target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+                glasses.transform.position = new Vector2(target.x, target.y);
+
+                Vector3 difference = target - player.transform.position;
+                float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+                player.transform.rotation = Quaternion.Euler(0f, 0.0f, rotZ-90);
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    float distance = difference.magnitude;
+                    Vector2 direction = difference / distance;
+                    direction.Normalize();
+                    shoot(direction, rotZ);
+                }
+            }
+        }
+        else{
+            Cursor.visible = true;
+        }
     }
 
     void shoot(Vector2 direction, float rotZ){

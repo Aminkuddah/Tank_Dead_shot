@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Halaman2.unity
     guid: caf8155cf2cf53b4ca48f94c89eb324b
   - enabled: 1
-    path: Assets/Scenes/Gameplay.unity
+    path: Assets/Scenes/GameplayMedium.unity
     guid: 1476334730d933e4cab0de37c39744ba
+  - enabled: 1
+    path: Assets/Scenes/GameplayEasy.unity
+    guid: e22c329eb4f4014469d7b1e4b8d1d671
+  - enabled: 1
+    path: Assets/Scenes/GameplayHard.unity
+    guid: f85decc5eb0d8e745980a837f74f5a2d
   m_configObjects: {}

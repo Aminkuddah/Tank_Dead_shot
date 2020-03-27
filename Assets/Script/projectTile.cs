@@ -8,7 +8,7 @@ public class projectTile : MonoBehaviour
     // public float lifeTime;
 
     public GameObject destroyEffect;
-    // public GameObject playerObject;
+    public GameObject playerObject;
 
     private Transform player;
     private Transform wall;
@@ -16,7 +16,7 @@ public class projectTile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerObject = GameObject.FindGameObjectWithTag("Player");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         target = new Vector2(player.position.x, player.position.y);
     }
@@ -35,7 +35,7 @@ public class projectTile : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             DestroyProjectTile();
-            // kill();
+            kill();
         }
         if (other.CompareTag("Wall"))
         {
@@ -43,9 +43,9 @@ public class projectTile : MonoBehaviour
         }
     }
 
-    // private void kill(){
-    //     Destroy(playerObject);
-    // }
+    private void kill(){
+        Destroy(playerObject);
+    }
 
     void DestroyProjectTile(){
         Instantiate(destroyEffect, transform.position, Quaternion.identity);
