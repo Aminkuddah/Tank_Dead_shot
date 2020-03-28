@@ -38,25 +38,37 @@ public class Enemy : MonoBehaviour
         currentScene = SceneManager.GetActiveScene();
         level = currentScene.name;
         Debug.Log("IsLoad Enemy : " + LoadGame.IsLoad);
+        
+        if (level == "GameplayEasy")
+        {
+            speed = 2;
+        }
+        else if(level == "GameplayMedium"){
+            speed = 4;
+        }
+        else if(level == "GameplayHard")
+        {
+            speed = 6;
+        }
+
         if (LoadGame.IsLoad == true)
         {   
             LoadEnemy();
         }else{
             if (level == "GameplayEasy")
             {
-                speed = 2;
                 health = 3;
             }
             else if(level == "GameplayMedium"){
-                speed = 4;
                 health = 5;
             }
             else if(level == "GameplayHard")
             {
-                speed = 6;
                 health = 8;
             }
         }
+        Debug.Log("Ini Speed = "+speed);
+        Debug.Log("Ini Health = "+health);
     }
 
     // Update is called once per frame
@@ -75,10 +87,6 @@ public class Enemy : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
         }
 
-        PlayerPrefs.SetFloat("enemyPos.x", transform.position.x);
-        PlayerPrefs.SetFloat("enemyPos.y", transform.position.y);
-        PlayerPrefs.SetFloat("enemyPos.z", transform.position.z);
-
         float rotZ = Mathf.Atan2(player.transform.position.y, player.transform.position.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0.0f, rotZ-90);
         if (timeShots <= 0)
@@ -92,6 +100,9 @@ public class Enemy : MonoBehaviour
         {
             timeShots -= Time.deltaTime;
         }
+        PlayerPrefs.SetFloat("enemyPos.x", transform.position.x);
+        PlayerPrefs.SetFloat("enemyPos.y", transform.position.y);
+        PlayerPrefs.SetFloat("enemyPos.z", transform.position.z);
     }
 
     private void OnTriggerEnter2D(Collider2D other){
@@ -149,7 +160,7 @@ public class Enemy : MonoBehaviour
         health = dataEnemy.healthEnemy;
         totalSkor = dataEnemy.point;
 
-        string msg = "Skor = " + totalSkor;
+        string msg = "Skor = " + dataEnemy.point;
         skorText.text = msg;
 
         Vector3 position;

@@ -20,6 +20,7 @@ public class LoadGame : MonoBehaviour
 
             if (level == "GameplayEasy")
             {
+                Debug.Log("ini bool load "+IsLoad);
                 SceneManager.LoadScene("GameplayEasy");
             }
             else if(level == "GameplayMedium"){

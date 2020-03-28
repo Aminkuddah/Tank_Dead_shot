@@ -40,6 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu(){
         SceneManager.LoadScene("Halaman1");
-        LoadGame.IsLoad = false;   
+        LoadGame.IsLoad = false;
+        PlayerPrefs.DeleteAll();
     }
 }

@@ -22,6 +22,9 @@ public class DataEnemy
         Debug.Log("Health save Data enemy : "+ healthEnemy);
         
         positionEnemy = new float[3];
+        // positionEnemy[0] = enemy.transform.position.x;
+        // positionEnemy[1] = enemy.transform.position.y;
+        // positionEnemy[2] = enemy.transform.position.z;
         positionEnemy[0] = PlayerPrefs.GetFloat("enemyPos.x");
         positionEnemy[1] = PlayerPrefs.GetFloat("enemyPos.y");
         positionEnemy[2] = PlayerPrefs.GetFloat("enemyPos.z");
