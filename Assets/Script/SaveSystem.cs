@@ -11,7 +11,7 @@ public static class SaveSystem
         string pathEnemy = Application.persistentDataPath + "/DataSaveEnemy.data";
 
         FileStream streamEnemy = new FileStream(pathEnemy, FileMode.Create);
-
+        
         DataEnemy dataEnemy = new DataEnemy(enemy);
 
         binaryFormatter.Serialize(streamEnemy, dataEnemy);
@@ -25,7 +25,7 @@ public static class SaveSystem
         FileStream streamPlayer = new FileStream(pathPlayer, FileMode.Create);
 
         DataPlayer dataPlayer = new DataPlayer(playerScript);
-
+        
         binaryFormatter.Serialize(streamPlayer, dataPlayer);
         streamPlayer.Close();
     }

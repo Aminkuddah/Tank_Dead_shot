@@ -10,8 +10,9 @@ public class LoadGame : MonoBehaviour
     public void BtnPressed(){
         IsLoad = true;
     }
+
     void Update(){
-        if (IsLoad)
+        if (IsLoad == true)
         {
             DataPlayer dataPlayer = SaveSystem.LoadDataPlayer();
         
@@ -29,7 +30,7 @@ public class LoadGame : MonoBehaviour
             }
             else{
                 Debug.Log("Scene tidak dapat ditemukan");
-            }    
+            }
         }
     }
 }

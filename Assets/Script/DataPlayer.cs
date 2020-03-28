@@ -12,10 +12,11 @@ public class DataPlayer
 
     public DataPlayer(PlayerScript playerScript){
         level = currentScene.name;
-
+        
         positionPlayer = new float[2];
         positionPlayer[0] = playerScript.transform.position.x;
         positionPlayer[1] = playerScript.transform.position.y;
+        Debug.Log("Posisi Player y: "+ positionPlayer[1]);
     }
     
 }

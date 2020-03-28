@@ -37,6 +37,7 @@ public class bulletPlayer : MonoBehaviour
                 direction.Normalize();
                 shoot(direction, rotZ);
             }
+            Cursor.visible = false;
         }
     }
 

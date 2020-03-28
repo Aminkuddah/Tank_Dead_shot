@@ -10,12 +10,13 @@ public class Enemy : MonoBehaviour
 {
     public float speed;
     public int health;
+    public int totalSkor;
     public float stoppingDistance;
     public float retreatDistance;
     public float startShots;
     private float timeShots;
     public Text skorText;
-    public int totalSkor = 0;
+   
     public string level;
     
     private Transform player;
@@ -24,12 +25,9 @@ public class Enemy : MonoBehaviour
     public GameObject bulletStart;
 
     SpriteRenderer spriteRenderer;
-    // private UnityEngine.Object enemyRef;
     private Material matDefault;
     private Scene currentScene;
     
-
-    // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -39,8 +37,9 @@ public class Enemy : MonoBehaviour
         totalSkor = PlayerPrefs.GetInt("score");
         currentScene = SceneManager.GetActiveScene();
         level = currentScene.name;
+        Debug.Log("IsLoad Enemy : " + LoadGame.IsLoad);
         if (LoadGame.IsLoad == true)
-        {
+        {   
             LoadEnemy();
         }else{
             if (level == "GameplayEasy")
@@ -58,9 +57,6 @@ public class Enemy : MonoBehaviour
                 health = 8;
             }
         }
-        
-        Debug.Log("Kecepatan : "+speed);
-        Debug.Log("Nyawa : " + health);
     }
 
     // Update is called once per frame
@@ -78,7 +74,11 @@ public class Enemy : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
         }
-        
+
+        PlayerPrefs.SetFloat("enemyPos.x", transform.position.x);
+        PlayerPrefs.SetFloat("enemyPos.y", transform.position.y);
+        PlayerPrefs.SetFloat("enemyPos.z", transform.position.z);
+
         float rotZ = Mathf.Atan2(player.transform.position.y, player.transform.position.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0.0f, rotZ-90);
         if (timeShots <= 0)
@@ -90,8 +90,8 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-                timeShots -= Time.deltaTime;
-            }
+            timeShots -= Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other){
@@ -113,6 +113,7 @@ public class Enemy : MonoBehaviour
                 updateSkorText();
             }
             PlayerPrefs.SetInt("score", totalSkor);
+            PlayerPrefs.SetInt("health", health);
         }
     }
 
@@ -123,7 +124,6 @@ public class Enemy : MonoBehaviour
     private void kill(){
         GameObject e = Instantiate(destroyEffect) as GameObject;
         e.transform.position = transform.position;
-        // Destroy(other.gameObject);
         spriteRenderer.enabled = false; 
         Invoke("Respawn", 1);
     }
@@ -131,11 +131,11 @@ public class Enemy : MonoBehaviour
     void Respawn(){
         GameObject clone = Instantiate(Resources.Load("enemy"), transform.position, Quaternion.identity) as GameObject;        
         Destroy(gameObject);
+        LoadGame.IsLoad = false;
     }
 
     private void updateSkorText(){
         string msg = "Skor = " + totalSkor;
-        Debug.Log("ini msg " + msg);
         skorText.text = msg;
     }
 
@@ -148,7 +148,9 @@ public class Enemy : MonoBehaviour
         
         health = dataEnemy.healthEnemy;
         totalSkor = dataEnemy.point;
-        Debug.Log("Skorny adalah "+totalSkor);
+
+        string msg = "Skor = " + totalSkor;
+        skorText.text = msg;
 
         Vector3 position;
         position.x = dataEnemy.positionEnemy[0];
