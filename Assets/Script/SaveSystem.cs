@@ -6,13 +6,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SaveDataEnemy(Enemy enemy){
+    public static void SaveDataEnemy(){
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         string pathEnemy = Application.persistentDataPath + "/DataSaveEnemy.data";
 
         FileStream streamEnemy = new FileStream(pathEnemy, FileMode.Create);
         
-        DataEnemy dataEnemy = new DataEnemy(enemy);
+        DataEnemy dataEnemy = new DataEnemy();
 
         binaryFormatter.Serialize(streamEnemy, dataEnemy);
         streamEnemy.Close();
@@ -25,7 +25,7 @@ public static class SaveSystem
         FileStream streamPlayer = new FileStream(pathPlayer, FileMode.Create);
 
         DataPlayer dataPlayer = new DataPlayer(playerScript);
-        
+
         binaryFormatter.Serialize(streamPlayer, dataPlayer);
         streamPlayer.Close();
     }

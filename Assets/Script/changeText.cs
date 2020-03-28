@@ -11,7 +11,15 @@ public class changeText : MonoBehaviour
     void Start()
     {
         skorText = GetComponent<Text>();
-        tampungSkorText.text = "Skor = 0";
+         if (LoadGame.IsLoad == true)
+        {   
+            DataEnemy dataEnemy = SaveSystem.LoadDataEnemy();
+            string msg = "Skor = " + dataEnemy.point;
+            tampungSkorText.text = msg;
+        }else{
+            tampungSkorText.text = "Skor = 0";
+        }
+        
     }
 
     // Update is called once per frame

@@ -13,7 +13,7 @@ public class DataEnemy
 
     Scene currentScene = SceneManager.GetActiveScene();
 
-    public DataEnemy(Enemy enemy){
+    public DataEnemy(){
         level = currentScene.name;
         healthEnemy = PlayerPrefs.GetInt("health");
         point = PlayerPrefs.GetInt("score");

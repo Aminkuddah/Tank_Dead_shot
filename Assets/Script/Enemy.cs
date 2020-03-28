@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
         level = currentScene.name;
         Debug.Log("IsLoad Enemy : " + LoadGame.IsLoad);
         
+
         if (level == "GameplayEasy")
         {
             speed = 2;
@@ -151,7 +152,7 @@ public class Enemy : MonoBehaviour
     }
 
     public void SaveEnemy(){
-        SaveSystem.SaveDataEnemy(this);
+        SaveSystem.SaveDataEnemy();
     }
 
     public void LoadEnemy(){
@@ -159,9 +160,6 @@ public class Enemy : MonoBehaviour
         
         health = dataEnemy.healthEnemy;
         totalSkor = dataEnemy.point;
-
-        string msg = "Skor = " + dataEnemy.point;
-        skorText.text = msg;
 
         Vector3 position;
         position.x = dataEnemy.positionEnemy[0];
